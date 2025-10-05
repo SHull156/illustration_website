@@ -1,0 +1,42 @@
+// Import libraries required for backend
+const express = require("express");
+const mysql = require("mysql2");
+const cors = require("cors");
+const path = require("path");
+
+// Create the express app
+const app = express();
+app.use(cors()); // allow front end to fetch data
+app.use(express.json());
+
+// Serve all static files in public
+console.log("STATIC PATH:", path.join(__dirname, "../public"));
+app.use(express.static(path.join(__dirname, "../public")));
+
+// Route for /shop
+app.get('/shop', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/shop.html'));
+});
+
+// Connect to MySQL
+const db = mysql.createConnection({
+  host: "localhost",
+  user: "newadmin",
+  password: "Mayland1989!",
+  database: "illustration_shop"
+});
+
+db.connect(err => {
+  if (err) throw err;
+  console.log("Connected to MySQL");
+});
+
+// Endpoint to get all products
+app.get("/products", (req, res) => {
+  db.query("SELECT * FROM products", (err, results) => {
+    if (err) throw err;
+    res.json(results);
+  });
+});
+
+app.listen(4000, () => console.log("Server running on http://localhost:4000"));

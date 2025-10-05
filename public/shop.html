@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - Sarah Rolph</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="site-header">
+        <h1 class="site-title">Sarah Rolph</h1>
+        <nav class="nav-bar">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="works.html">Works</a>
+            <a href="shop.html">Shop</a>
+        </nav>
+    </header>
+
+    <section class="shop-grid" id="shop-grid">
+  <!-- Products will be inserted here -->
+</section>
+
+<script>
+fetch('/products')
+  .then(res => res.json())
+  .then(products => {
+    const grid = document.getElementById('shop-grid');
+    products.forEach(p => {
+      const div = document.createElement('div');
+      div.classList.add('product');
+      div.innerHTML = `
+        <img src="${p.image_url}" alt="${p.name}">
+        <h3>${p.name}</h3>
+        <p>$${p.price}</p>
+        <button class="add-to-cart">Add to Cart</button>
+      `;
+      grid.appendChild(div);
+    });
+  });
+</script>
+
+    <script src="shop.js"></script>
+</body>
+</html>
