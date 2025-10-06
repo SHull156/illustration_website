@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your cart</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="site-header">
+        <h1 class="site-title">Sarah Rolph</h1>
+        <nav class="nav-bar">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="works.html">Works</a>
+            <a href="shop.html">Shop</a>
+            <a href="cart.html" id="cart-link">Cart (<span id="cart-count">0</span>)</a>
+        </nav>
+    </header>
+
+    <main style="padding:20px">
+        <h2>Your Cart</h2>
+        <div id="cart-items"> </div>
+        <p>Total: <strong id="cart-total">$0.00</strong></p>
+        <button id="clear-cart">Clear Cart</button>
+    </main>
+
+    <script src="cart.js"></script>
+  <script>
+    // Render cart contents
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const container = document.getElementById('cart-items');
+    const totalEl = document.getElementById('cart-total');
+
+    function renderCart() {
+      container.innerHTML = '';
+      let total = 0;
+      cart.forEach(item => {
+        const div = document.createElement('div');
+        div.innerHTML = `
+          <img src="${item.image}" width="80">
+          <strong>${item.name}</strong> - $${item.price} × ${item.quantity}
+        `;
+        total += item.price * item.quantity;
+        container.appendChild(div);
+      });
+      totalEl.textContent = `$${total.toFixed(2)}`;
+    }
+
+    renderCart ();
+    
+    document.getElementById("clear-cart").addEventListener("click", () => {
+        localStorage.removeItem("cart");
+        location.reload();
+    });
+    </script>
+    
+</body>
+</html>
