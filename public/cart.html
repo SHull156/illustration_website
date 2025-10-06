@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your cart</title>
+    <title>Your Cart</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -20,40 +20,84 @@
 
     <main style="padding:20px">
         <h2>Your Cart</h2>
-        <div id="cart-items"> </div>
+        <div id="cart-items"></div>
         <p>Total: <strong id="cart-total">$0.00</strong></p>
         <button id="clear-cart">Clear Cart</button>
     </main>
 
     <script src="cart.js"></script>
-  <script>
-    // Render cart contents
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    const container = document.getElementById('cart-items');
-    const totalEl = document.getElementById('cart-total');
+    <script>
+        // Render cart contents with remove & quantity buttons
+        function renderCart() {
+            const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+            const container = document.getElementById("cart-items");
+            const totalEl = document.getElementById("cart-total");
+            container.innerHTML = '';
+            let total = 0;
 
-    function renderCart() {
-      container.innerHTML = '';
-      let total = 0;
-      cart.forEach(item => {
-        const div = document.createElement('div');
-        div.innerHTML = `
-          <img src="${item.image}" width="80">
-          <strong>${item.name}</strong> - $${item.price} × ${item.quantity}
-        `;
-        total += item.price * item.quantity;
-        container.appendChild(div);
-      });
-      totalEl.textContent = `$${total.toFixed(2)}`;
-    }
+            cart.forEach((item, index) => {
+                const div = document.createElement("div");
+                div.classList.add("cart-item");
+                div.innerHTML = `
+                    <img src="${item.image}" width="80" style="vertical-align: middle;">
+                    <strong>${item.name}</strong> - $${item.price} × ${item.quantity}
+                    <button class="decrease" data-index="${index}">-</button>
+                    <button class="increase" data-index="${index}">+</button>
+                    <button class="remove-item" data-index="${index}">Remove</button>
+                `;
+                total += item.price * item.quantity;
+                container.appendChild(div);
+            });
 
-    renderCart ();
-    
-    document.getElementById("clear-cart").addEventListener("click", () => {
-        localStorage.removeItem("cart");
-        location.reload();
-    });
+            totalEl.textContent = `$${total.toFixed(2)}`;
+
+            // Event listeners
+            document.querySelectorAll(".remove-item").forEach(btn => {
+                btn.addEventListener("click", () => removeFromCart(btn.dataset.index));
+            });
+            document.querySelectorAll(".increase").forEach(btn => {
+                btn.addEventListener("click", () => changeQuantity(btn.dataset.index, 1));
+            });
+            document.querySelectorAll(".decrease").forEach(btn => {
+                btn.addEventListener("click", () => changeQuantity(btn.dataset.index, -1));
+            });
+        }
+
+        function removeFromCart(index) {
+            const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+            cart.splice(index, 1);
+            localStorage.setItem("cart", JSON.stringify(cart));
+            updateCartCount();
+            renderCart();
+        }
+
+        function changeQuantity(index, delta) {
+            const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+            cart[index].quantity += delta;
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+            }
+            localStorage.setItem("cart", JSON.stringify(cart));
+            updateCartCount();
+            renderCart();
+        }
+
+        function updateCartCount() {
+            const el = document.getElementById("cart-count");
+            const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+            const total = cart.reduce((sum, p) => sum + p.quantity, 0);
+            el.textContent = total;
+        }
+
+        document.getElementById("clear-cart").addEventListener("click", () => {
+            localStorage.removeItem("cart");
+            renderCart();
+            updateCartCount();
+        });
+
+        // Initial render
+        renderCart();
+        updateCartCount();
     </script>
-    
 </body>
 </html>
