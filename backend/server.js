@@ -40,4 +40,9 @@ app.get("/products", (req, res) => {
   });
 });
 
-app.listen(4000, () => console.log("Server running on http://localhost:4000"));
+const PORT = process.env.PORT || 4000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
