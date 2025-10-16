@@ -20,10 +20,11 @@ app.get('/shop', (req, res) => {
 
 // Connect to MySQL
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "newadmin",
-  password: "Mayland1989!",
-  database: "illustration_shop"
+  host: process.env.MYSQLHOST,
+  user: process.env.MYSQLUSER,
+  password: process.env.MYSQLPASSWORD,
+  database: process.env.MYSQLDATABASE,
+  port: process.env.MYSQLPORT
 });
 
 db.connect(err => {
