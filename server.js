@@ -19,11 +19,11 @@ app.get('/shop', (req, res) => {
 });
 
 const db = mysql.createConnection({
-  host: process.env.RAILWAY_INTERNAL_DB_HOST || process.env.MYSQLHOST,
-  user: process.env.MYSQLUSER,
-  password: process.env.MYSQLPASSWORD,
-  database: process.env.MYSQLDATABASE,
-  port: process.env.MYSQLPORT
+  host: process.env.RAILWAY_INTERNAL_DB_HOST,
+  user: process.env.RAILWAY_INTERNAL_DB_USER,
+  password: process.env.RAILWAY_INTERNAL_DB_PASSWORD,
+  database: process.env.RAILWAY_INTERNAL_DB_NAME,
+  port: process.env.RAILWAY_INTERNAL_DB_PORT
 });
 
 db.connect(err => {
