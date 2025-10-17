@@ -20,10 +20,8 @@ app.get('/shop', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/shop.html'));
 });
 
-const host = process.env.RAILWAY_INTERNAL_DB_HOST || process.env.MYSQLHOST;
-
 const db = mysql.createConnection({
-  host: host,
+  host: process.env.RAILWAY_INTERNAL_DB_HOST || process.env.MYSQLHOST,
   user: process.env.MYSQLUSER,
   password: process.env.MYSQLPASSWORD,
   database: process.env.MYSQLDATABASE,
