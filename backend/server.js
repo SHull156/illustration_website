@@ -1,4 +1,6 @@
 // Import libraries required for backend
+require('dotenv').config();
+
 const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
@@ -18,9 +20,10 @@ app.get('/shop', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/shop.html'));
 });
 
-// Connect to MySQL
+const host = process.env.RAILWAY_INTERNAL_DB_HOST || process.env.MYSQLHOST;
+
 const db = mysql.createConnection({
-  host: process.env.MYSQLHOST,
+  host: host,
   user: process.env.MYSQLUSER,
   password: process.env.MYSQLPASSWORD,
   database: process.env.MYSQLDATABASE,
@@ -28,7 +31,10 @@ const db = mysql.createConnection({
 });
 
 db.connect(err => {
-  if (err) throw err;
+  if (err) {
+    console.error("MySQL connection error:", err.message);
+    return;
+  }
   console.log("Connected to MySQL");
 });
 
