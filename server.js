@@ -11,6 +11,7 @@ const app = express();
 app.use(cors()); // allow front end to fetch data
 app.use(express.json());
 
+// Serve static files (frontend)
 console.log("STATIC PATH:", path.join(__dirname, "public"));
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -18,13 +19,8 @@ app.get('/shop', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/shop.html'));
 });
 
-const db = mysql.createConnection({
-  host: process.env.RAILWAY_INTERNAL_DB_HOST,
-  user: process.env.RAILWAY_INTERNAL_DB_USER,
-  password: process.env.RAILWAY_INTERNAL_DB_PASSWORD,
-  database: process.env.RAILWAY_INTERNAL_DB_NAME,
-  port: process.env.RAILWAY_INTERNAL_DB_PORT
-});
+// Use Railway-provided MySQL URL
+const db = mysql.createConnection(process.env.MYSQL_URL);
 
 db.connect(err => {
   if (err) {
@@ -37,7 +33,11 @@ db.connect(err => {
 // Endpoint to get all products
 app.get("/products", (req, res) => {
   db.query("SELECT * FROM products", (err, results) => {
-    if (err) throw err;
+    if (err) {
+      console.error("Database query error:", err);
+      res.status(500).send("Error fetching products");
+      return;
+    }
     res.json(results);
   });
 });
@@ -45,6 +45,5 @@ app.get("/products", (req, res) => {
 const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });
-
