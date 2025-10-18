@@ -19,8 +19,14 @@ app.get('/shop', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/shop.html'));
 });
 
-// Use Railway-provided MySQL URL
-const db = mysql.createConnection(process.env.MYSQL_URL);
+// Connect to MySQL using the new Railway variables
+const db = mysql.createConnection({
+  host: process.env.MYSQLHOST,
+  user: process.env.MYSQLUSER,
+  password: process.env.MYSQLPASSWORD,
+  database: process.env.MYSQL_DATABASE,
+  port: process.env.MYSQLPORT
+});
 
 db.connect(err => {
   if (err) {
