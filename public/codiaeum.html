@@ -1,31 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Codiaeum - Sarah Rolph</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Codiaeum — Sarah Rolph</title>
+  <meta name="description" content="Codiaeum botanical illustration series by Sarah Rolph. Gouache on paper, 2025." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-       <header class="site-header">
-        <h1 class="site-title">Sarah Rolph</h1>
-        <nav class="nav-bar">
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="works.html">Works</a>
-            <a href="shop.html">Shop</a>
-        </nav>
-        </header>
+  <header class="site-header">
+    <h1 class="site-title">
+      <a class="brand" href="index.html">Sarah Rolph</a>
+    </h1>
 
-        <main class = "work-detail"></main>
-            <h2>Codiaeum</h2>
-            <p>Series of illustrations of the Codiaeum plant, gouache on paper, 2025</p>
-        
-            <img src="images/product4.jpg" alt="Codiaeum 1" class= "work-image">
-            <img src="images/product5.jpg" alt="Codiaeum 2" class= "work-image">
-            <img src="images/product6.jpg" alt="Codiaeum 3" class= "work-image">
-            
-            
-    
+    <nav class="nav-bar" aria-label="Primary">
+      <button class="menu-toggle" id="menu-toggle" aria-controls="nav-links" aria-expanded="false">
+        ☰ <span class="sr-only">Menu</span>
+      </button>
+
+      <div class="nav-links" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a class="active" href="works.html">Works</a>
+        <a href="shop.html">Shop</a>
+        <a href="cart.html" id="cart-link">Cart (<span id="cart-count">0</span>)</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container work-detail">
+    <h2 class="page-title">Codiaeum</h2>
+    <p class="work-meta">Series of illustrations of the Codiaeum plant, gouache on paper, 2025.</p>
+
+    <section class="work-grid" aria-label="Codiaeum images">
+      <img src="images/product4.jpg" alt="Codiaeum illustration 1" class="work-image" loading="lazy">
+      <img src="images/product5.jpg" alt="Codiaeum illustration 2" class="work-image" loading="lazy">
+      <img src="images/product6.jpg" alt="Codiaeum illustration 3" class="work-image" loading="lazy">
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+  <script src="cart.js"></script>
 </body>
 </html>

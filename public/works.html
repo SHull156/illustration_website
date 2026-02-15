@@ -1,28 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Works — Sarah Rolph</title>
+  <meta name="description" content="Browse selected botanical illustration series by Sarah Rolph." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-   <header class="site-header">
-    <h1 class="site-title">Sarah Rolph</h1>
-        <nav class="nav-bar">
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="works.html">Works</a>
-            <a href="shop.html">Shop</a>
-        </nav>
-    </header>
+  <header class="site-header">
+    <h1 class="site-title">
+      <a class="brand" href="index.html">Sarah Rolph</a>
+    </h1>
 
-    <section class="portfolio-grid">
-        <a href="calathea.html"><img src="images/works1.jpg" alt="Calathea 1"></a>
-        <a href="codiaeum.html"><img src="images/works2.jpg" alt="Codiaeum 2"></a>
-        <a href="flamengueira.html"><img src="images/works3.jpg" alt="Flamengueira 3"></a>
+    <nav class="nav-bar" aria-label="Primary">
+      <button class="menu-toggle" id="menu-toggle" aria-controls="nav-links" aria-expanded="false">
+        ☰ <span class="sr-only">Menu</span>
+      </button>
 
+      <div class="nav-links" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a class="active" href="works.html">Works</a>
+        <a href="shop.html">Shop</a>
+        <a href="cart.html" id="cart-link">Cart (<span id="cart-count">0</span>)</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h2 class="page-title">Works</h2>
+
+    <section class="portfolio-grid" aria-label="Work series">
+      <a class="card-link" href="calathea.html">
+        <img src="images/works1.jpg" alt="Calathea series preview" loading="lazy">
+      </a>
+
+      <a class="card-link" href="codiaeum.html">
+        <img src="images/works2.jpg" alt="Codiaeum series preview" loading="lazy">
+      </a>
+
+      <a class="card-link" href="flamengueira.html">
+        <img src="images/works3.jpg" alt="Flamengueira series preview" loading="lazy">
+      </a>
     </section>
-    
+  </main>
+
+  <script src="script.js"></script>
+  <script src="cart.js"></script>
 </body>
 </html>

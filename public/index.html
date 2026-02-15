@@ -1,28 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sarah Rolph - Illustation</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sarah Rolph — Botanical Illustration</title>
+  <meta name="description" content="Hand-painted botanical illustrations in gouache by Sarah Rolph. View works and shop prints." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <header class ="site-header">
-        <h1 class ="site-title"> Sarah Rolph </h1>
-        <nav class="nav-bar">
-            <div class="menu-toggle" id="menu-toggle">☰</div>
-            <div class="nav-links" id="nav-links">
-                <a href="index.html">Home</a>
-                <a href="about.html">About</a>
-                <a href="works.html">Works</a>
-                <a href="shop.html">Shop</a>
-            </div>
-        </nav>
+  <header class="site-header">
+    <h1 class="site-title">
+      <a class="brand" href="index.html">Sarah Rolph</a>
+    </h1>
 
-    </header>
+    <nav class="nav-bar" aria-label="Primary">
+      <button class="menu-toggle" id="menu-toggle" aria-controls="nav-links" aria-expanded="false">
+        ☰ <span class="sr-only">Menu</span>
+      </button>
 
-    <img id="home-image" src="images/homepage.png" alt="Illustation of Sarah Rolph's artwork">
+      <div class="nav-links" id="nav-links">
+        <a class="active" href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="works.html">Works</a>
+        <a href="shop.html">Shop</a>
+        <a href="cart.html" id="cart-link">Cart (<span id="cart-count">0</span>)</a>
+      </div>
+    </nav>
+  </header>
 
-    <script src="script.js"></script>
+  <main class="container">
+    <section class="hero" aria-label="Introduction">
+      <p class="hero-text">Hand-painted botanical illustrations in gouache.</p>
+      <div class="hero-links">
+        <a class="button-link" href="works.html">View Works</a>
+        <a class="button-link" href="shop.html">Shop Prints</a>
+      </div>
+    </section>
+
+    <img id="home-image" src="images/homepage.png" alt="A selection of Sarah Rolph's botanical gouache illustrations" />
+  </main>
+
+  <script src="script.js"></script>
+  <script src="cart.js"></script>
 </body>
 </html>

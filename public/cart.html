@@ -1,103 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Cart</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cart — Sarah Rolph</title>
+  <meta name="description" content="View and update your shopping cart." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <header class="site-header">
-        <h1 class="site-title">Sarah Rolph</h1>
-        <nav class="nav-bar">
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="works.html">Works</a>
-            <a href="shop.html">Shop</a>
-            <a href="cart.html" id="cart-link">Cart (<span id="cart-count">0</span>)</a>
-        </nav>
-    </header>
+  <header class="site-header">
+    <h1 class="site-title">
+      <a class="brand" href="index.html">Sarah Rolph</a>
+    </h1>
 
-    <main style="padding:20px">
-        <h2>Your Cart</h2>
-        <div id="cart-items"></div>
-        <p>Total: <strong id="cart-total">$0.00</strong></p>
-        <button id="clear-cart">Clear Cart</button>
-    </main>
+    <nav class="nav-bar" aria-label="Primary">
+      <button class="menu-toggle" id="menu-toggle" aria-controls="nav-links" aria-expanded="false">
+        ☰ <span class="sr-only">Menu</span>
+      </button>
 
-    <script src="cart.js"></script>
-    <script>
-        // Render cart contents with remove & quantity buttons
-        function renderCart() {
-            const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-            const container = document.getElementById("cart-items");
-            const totalEl = document.getElementById("cart-total");
-            container.innerHTML = '';
-            let total = 0;
+      <div class="nav-links" id="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="works.html">Works</a>
+        <a href="shop.html">Shop</a>
+        <a class="active" href="cart.html" id="cart-link">Cart (<span id="cart-count">0</span>)</a>
+      </div>
+    </nav>
+  </header>
 
-            cart.forEach((item, index) => {
-                const div = document.createElement("div");
-                div.classList.add("cart-item");
-                div.innerHTML = `
-                    <img src="${item.image}" width="80" style="vertical-align: middle;">
-                    <strong>${item.name}</strong> - $${item.price} × ${item.quantity}
-                    <button class="decrease" data-index="${index}">-</button>
-                    <button class="increase" data-index="${index}">+</button>
-                    <button class="remove-item" data-index="${index}">Remove</button>
-                `;
-                total += item.price * item.quantity;
-                container.appendChild(div);
-            });
+  <main class="container">
+    <h2 class="page-title">Your Cart</h2>
 
-            totalEl.textContent = `$${total.toFixed(2)}`;
+    <div id="cart-items" class="cart-items"></div>
 
-            // Event listeners
-            document.querySelectorAll(".remove-item").forEach(btn => {
-                btn.addEventListener("click", () => removeFromCart(btn.dataset.index));
-            });
-            document.querySelectorAll(".increase").forEach(btn => {
-                btn.addEventListener("click", () => changeQuantity(btn.dataset.index, 1));
-            });
-            document.querySelectorAll(".decrease").forEach(btn => {
-                btn.addEventListener("click", () => changeQuantity(btn.dataset.index, -1));
-            });
-        }
+    <div class="cart-summary">
+      <p>Total: <strong id="cart-total">£0.00</strong></p>
+      <button id="clear-cart" class="button">Clear cart</button>
+    </div>
 
-        function removeFromCart(index) {
-            const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-            cart.splice(index, 1);
-            localStorage.setItem("cart", JSON.stringify(cart));
-            updateCartCount();
-            renderCart();
-        }
+    <p class="muted">This demo cart uses localStorage (no checkout yet).</p>
+  </main>
 
-        function changeQuantity(index, delta) {
-            const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-            cart[index].quantity += delta;
-            if (cart[index].quantity <= 0) {
-                cart.splice(index, 1);
-            }
-            localStorage.setItem("cart", JSON.stringify(cart));
-            updateCartCount();
-            renderCart();
-        }
-
-        function updateCartCount() {
-            const el = document.getElementById("cart-count");
-            const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-            const total = cart.reduce((sum, p) => sum + p.quantity, 0);
-            el.textContent = total;
-        }
-
-        document.getElementById("clear-cart").addEventListener("click", () => {
-            localStorage.removeItem("cart");
-            renderCart();
-            updateCartCount();
-        });
-
-        // Initial render
-        renderCart();
-        updateCartCount();
-    </script>
+  <script src="script.js"></script>
+  <script src="cart.js"></script>
 </body>
 </html>
