@@ -3,96 +3,101 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shop - Sarah Rolph</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Shop — Sarah Rolph</title>
+  <meta name="description" content="Shop botanical prints and artwork by Sarah Rolph." />
+  <link rel="stylesheet" href="/style.css" />
 </head>
+
 <body>
-  <header class="site-header">
+<header class="site-header">
+  <div class="header-inner">
     <h1 class="site-title">Sarah Rolph</h1>
+
     <nav class="nav-bar" aria-label="Primary">
       <button class="menu-toggle" id="menu-toggle" aria-controls="nav-links" aria-expanded="false">
         ☰ <span class="sr-only">Menu</span>
       </button>
 
       <div class="nav-links" id="nav-links">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="works.html">Works</a>
-        <a class="active" href="shop.html">Shop</a>
-        <a href="cart.html" id="cart-link">Cart (<span id="cart-count">0</span>)</a>
+        <a href="/index.html">Home</a>
+        <a href="/about.html">About</a>
+        <a href="/works.html">Works</a>
+        <a class="active" href="/shop.html">Shop</a>
+        <a href="/cart.html" id="cart-link">Cart (<span id="cart-count">0</span>)</a>
       </div>
     </nav>
-  </header>
+  </div>
+</header>
 
-  <main class="container">
-    <h2 class="page-title">Shop</h2>
+<main class="container">
+  <h2 class="page-title">Shop</h2>
 
-    <section class="shop-grid" id="shop-grid">
-      <p class="muted">Loading products…</p>
-    </section>
-  </main>
+  <section class="shop-grid" id="shop-grid">
+    <p class="muted">Loading products…</p>
+  </section>
+</main>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", async () => {
-      const grid = document.getElementById("shop-grid");
-      if (!grid) return;
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    const grid = document.getElementById("shop-grid");
+    if (!grid) return;
 
-      try {
-        const res = await fetch("/products");
-        if (!res.ok) throw new Error(`Failed to fetch /products (${res.status})`);
+    try {
+      const res = await fetch("/products");
+      if (!res.ok) throw new Error(`Failed to fetch /products (${res.status})`);
 
-        const products = await res.json();
+      const products = await res.json();
 
-        if (!Array.isArray(products) || products.length === 0) {
-          grid.innerHTML = `<p class="muted">No products available right now.</p>`;
-          return;
-        }
-
-        grid.innerHTML = "";
-
-        products.forEach((p) => {
-          const card = document.createElement("div");
-          card.className = "product";
-
-          // Make the cart system reliable: store product info on the element
-          card.dataset.id = String(p.id);
-          card.dataset.name = String(p.name);
-          card.dataset.price = String(p.price); // "50.00" ok
-          // force image paths to be absolute so they work everywhere
-          const imgPath = String(p.image_url || "").startsWith("/")
-            ? String(p.image_url)
-            : "/" + String(p.image_url || "");
-          card.dataset.image = imgPath;
-
-          card.innerHTML = `
-            <img src="${escapeHtml(imgPath)}" alt="${escapeHtml(p.name)}" loading="lazy">
-            <h3>${escapeHtml(p.name)}</h3>
-            <p>£${Number(p.price).toFixed(2)}</p>
-            <button class="add-to-cart" type="button">Add to Cart</button>
-          `;
-
-          grid.appendChild(card);
-        });
-      } catch (err) {
-        console.error(err);
-        grid.innerHTML = `
-          <p class="muted">
-            Products couldn’t load. Check your server is running and <code>/products</code> returns JSON.
-          </p>
-        `;
+      if (!Array.isArray(products) || products.length === 0) {
+        grid.innerHTML = `<p class="muted">No products available right now.</p>`;
+        return;
       }
-    });
 
-    function escapeHtml(str) {
-      return String(str ?? "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+      grid.innerHTML = "";
+
+      products.forEach((p) => {
+        const card = document.createElement("div");
+        card.className = "product";
+
+        card.dataset.id = String(p.id);
+        card.dataset.name = String(p.name);
+        card.dataset.price = String(p.price);
+
+        const imgPath = String(p.image_url || "").startsWith("/")
+          ? String(p.image_url)
+          : "/" + String(p.image_url || "");
+        card.dataset.image = imgPath;
+
+        card.innerHTML = `
+          <img src="${escapeHtml(imgPath)}" alt="${escapeHtml(p.name)}" loading="lazy">
+          <h3>${escapeHtml(p.name)}</h3>
+          <p>£${Number(p.price).toFixed(2)}</p>
+          <button class="add-to-cart" type="button">Add to Cart</button>
+        `;
+
+        grid.appendChild(card);
+      });
+    } catch (err) {
+      console.error(err);
+      grid.innerHTML = `
+        <p class="muted">
+          Products couldn’t load. Check your server is running and <code>/products</code> returns JSON.
+        </p>
+      `;
     }
-  </script>
-  <script src="script.js"></script>
-  <script src="cart.js"></script>
+  });
+
+  function escapeHtml(str) {
+    return String(str ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+</script>
+
+<script src="/script.js"></script>
+<script src="/cart.js"></script>
 </body>
 </html>

@@ -9,6 +9,12 @@
   box-sizing: border-box;
 }
 
+/* Prevent tiny layout shifts between pages with/without scrollbars */
+html {
+  scrollbar-gutter: stable;
+  overflow-y: scroll; /* fallback + forces consistent viewport width */
+}
+
 :root {
   --text: #111;
   --muted: #444;
@@ -74,6 +80,18 @@ a {
   position: relative;
 }
 
+/* Title + Nav stack on desktop */
+.header-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  gap: 16px;
+}
+
+/* Title */
 .site-title {
   margin: 0;
   text-align: center;
@@ -81,20 +99,20 @@ a {
   font-weight: 300;
 }
 
-/* nav wrapper */
+/* Nav wrapper */
 .nav-bar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  margin-top: 16px;
+  margin-top: 0;
   min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  /* Force consistent sizing everywhere */
   font-size: 18px;
   font-weight: 300;
+  position: relative;
 }
 
+/* Links */
 .nav-links {
   display: flex;
   align-items: center;
@@ -115,7 +133,7 @@ a {
   text-underline-offset: 4px;
 }
 
-/* Burger button */
+/* Burger button (hidden on desktop) */
 .menu-toggle {
   display: none;
   align-items: center;
@@ -351,35 +369,60 @@ a {
    Responsive
 --------------------------------------------------------- */
 @media (max-width: 768px) {
+  /* Title and burger share the row */
+  .header-inner {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  /* Burger sits on the same line as the title (right side) */
+  .nav-bar {
+    margin-top: 0;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    justify-content: flex-end;
+    min-height: 44px;
+  }
+
   .menu-toggle {
     display: inline-flex;
   }
 
-  .nav-bar {
-    justify-content: flex-end;
-  }
-
+  /* Dropdown menu */
   .nav-links {
     display: none;
     flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+
     position: absolute;
-    top: 44px;
+    top: calc(100% + 10px);
     right: 0;
+
     padding: 14px;
-    border-radius: var(--radius);
-    background: white;
+    border-radius: 12px;
+    background: #fff;
     box-shadow: var(--shadow);
+    min-width: 200px;
+  }
+
+  .nav-links a {
+    padding: 10px 12px;
   }
 
   .nav-links.show {
     display: flex;
   }
 
+  /* Grids */
   .portfolio-grid,
   .shop-grid {
     grid-template-columns: 1fr;
   }
 
+  /* Cart layout */
   .cart-item {
     grid-template-columns: 70px 1fr;
     grid-template-rows: auto auto;
