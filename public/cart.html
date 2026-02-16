@@ -3,19 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cart — Sarah Rolph</title>
-  <meta name="description" content="View and update your shopping cart." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;600&display=swap" rel="stylesheet">
+  <title>Your Cart</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="site-header">
-    <h1 class="site-title">
-      <a class="brand" href="index.html">Sarah Rolph</a>
-    </h1>
-
+    <h1 class="site-title">Sarah Rolph</h1>
+    
     <nav class="nav-bar" aria-label="Primary">
       <button class="menu-toggle" id="menu-toggle" aria-controls="nav-links" aria-expanded="false">
         ☰ <span class="sr-only">Menu</span>
@@ -29,21 +23,18 @@
         <a class="active" href="cart.html" id="cart-link">Cart (<span id="cart-count">0</span>)</a>
       </div>
     </nav>
+  
   </header>
 
   <main class="container">
     <h2 class="page-title">Your Cart</h2>
 
-    <div id="cart-items" class="cart-items"></div>
+    <div id="cart-items"></div>
+    <p>Total: <strong id="cart-total">£0.00</strong></p>
 
-    <div class="cart-summary">
-      <p>Total: <strong id="cart-total">£0.00</strong></p>
-      <button id="clear-cart" class="button">Clear cart</button>
-    </div>
-
-    <p class="muted">This demo cart uses localStorage (no checkout yet).</p>
+    <button id="clear-cart" type="button">Clear Cart</button>
   </main>
-
+  
   <script src="script.js"></script>
   <script src="cart.js"></script>
 </body>

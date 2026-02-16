@@ -17,8 +17,8 @@
       <div class="nav-links" id="nav-links">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
-        <a class="active" href="works.html">Works</a>
-        <a href="shop.html">Shop</a>
+        <a href="works.html">Works</a>
+        <a class="active" href="shop.html">Shop</a>
         <a href="cart.html" id="cart-link">Cart (<span id="cart-count">0</span>)</a>
       </div>
     </nav>
@@ -54,11 +54,11 @@
           const card = document.createElement("div");
           card.className = "product";
 
-          // ✅ Make the cart system reliable: store product info on the element
+          // Make the cart system reliable: store product info on the element
           card.dataset.id = String(p.id);
           card.dataset.name = String(p.name);
           card.dataset.price = String(p.price); // "50.00" ok
-          // ✅ force image paths to be absolute so they work everywhere
+          // force image paths to be absolute so they work everywhere
           const imgPath = String(p.image_url || "").startsWith("/")
             ? String(p.image_url)
             : "/" + String(p.image_url || "");
@@ -92,7 +92,7 @@
         .replaceAll("'", "&#039;");
     }
   </script>
-
+  <script src="script.js"></script>
   <script src="cart.js"></script>
 </body>
 </html>
