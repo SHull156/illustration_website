@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
+import Header from './components/Header';
 
 function App() {
   const [products, setProducts] = useState([])
@@ -14,11 +15,15 @@ function App() {
   }, []);
 
   return(
-    <ul>
-      {products.map((product) => (
-        <li key={product.id}>{product.name}</li>
-      ))}
-    </ul>
+    <>
+      <Header />
+      <ul>
+        {products.map((product) => (
+          <li key={product.id}>{product.name}</li>
+        ))}
+      </ul>
+    </>
+    
   )
 
 }
