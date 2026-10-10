@@ -1,0 +1,430 @@
+/* ---------------------------------------------------------
+   Global
+--------------------------------------------------------- */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;600&display=swap");
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Prevent tiny layout shifts between pages with/without scrollbars */
+html {
+  scrollbar-gutter: stable;
+  overflow-y: scroll; /* fallback + forces consistent viewport width */
+}
+
+:root {
+  --text: #111;
+  --muted: #444;
+  --bg: #fff;
+  --card: #f9f9f9;
+  --hover: rgba(0, 0, 0, 0.05);
+  --hover-strong: rgba(0, 0, 0, 0.12);
+  --shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+  --radius: 12px;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Playfair Display", serif;
+  font-weight: 300;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ---------------------------------------------------------
+   Helpers
+--------------------------------------------------------- */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.page-title {
+  font-size: 26px;
+  font-weight: 300;
+  margin: 28px 0 16px;
+  text-align: center;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+/* Accessibility helper */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------------------------------------------------------
+   Header + Nav
+--------------------------------------------------------- */
+.site-header {
+  padding: 24px 20px 10px;
+  position: relative;
+}
+
+/* Title + Nav stack on desktop */
+.header-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  gap: 16px;
+}
+
+/* Title */
+.site-title {
+  margin: 0;
+  text-align: center;
+  font-size: 34px;
+  font-weight: 300;
+}
+
+/* Nav wrapper */
+.nav-bar {
+  margin-top: 0;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 18px;
+  font-weight: 300;
+  position: relative;
+}
+
+/* Links */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.nav-links a {
+  padding: 6px 8px;
+  border-radius: 8px;
+}
+
+.nav-links a:hover {
+  background: var(--hover);
+}
+
+.nav-links a.active {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Burger button (hidden on desktop) */
+.menu-toggle {
+  display: none;
+  align-items: center;
+  gap: 6px;
+
+  font-size: 28px;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  padding: 6px 10px;
+  border-radius: 10px;
+}
+
+.menu-toggle:hover {
+  background: var(--hover);
+}
+
+/* ---------------------------------------------------------
+   Hero
+--------------------------------------------------------- */
+.hero {
+  text-align: center;
+  margin: 28px 0;
+}
+
+.hero-text {
+  font-size: 18px;
+  margin: 0 0 14px;
+}
+
+.hero-links {
+  display: inline-flex;
+  gap: 12px;
+}
+
+.button-link {
+  display: inline-block;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.button-link:hover {
+  background: rgba(0, 0, 0, 0.10);
+}
+
+#home-image {
+  display: block;
+  margin: 0 auto 40px;
+  width: min(800px, 90%);
+  height: auto;
+  border-radius: var(--radius);
+}
+
+/* ---------------------------------------------------------
+   About
+--------------------------------------------------------- */
+.about {
+  font-size: 18px;
+  line-height: 1.7;
+  max-width: 800px;
+  margin: 14px auto;
+}
+
+/* ---------------------------------------------------------
+   Works grid
+--------------------------------------------------------- */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin: 18px 0 40px;
+}
+
+.portfolio-grid img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.portfolio-grid img:hover {
+  transform: scale(1.03);
+  box-shadow: var(--shadow);
+}
+
+/* ---------------------------------------------------------
+   Work detail
+--------------------------------------------------------- */
+.work-meta {
+  text-align: center;
+  margin: 0 0 18px;
+}
+
+.work-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.work-image {
+  width: min(320px, 90vw);
+  height: auto;
+  border-radius: 10px;
+  transition: transform 0.25s ease;
+}
+
+.work-image:hover {
+  transform: scale(1.06);
+}
+
+/* ---------------------------------------------------------
+   Shop grid
+--------------------------------------------------------- */
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin: 18px 0 40px;
+}
+
+.product {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  text-align: center;
+
+  border-radius: var(--radius);
+  background: var(--card);
+  padding: 14px;
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.product:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.product img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  display: block;
+}
+
+.product h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.product p {
+  margin: 0;
+}
+
+/* shared button look */
+.button,
+.product button,
+.cart-item button,
+.qty-btn,
+.remove-btn {
+  cursor: pointer;
+  border: 0;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.button:hover,
+.product button:hover,
+.cart-item button:hover,
+.qty-btn:hover,
+.remove-btn:hover {
+  background: var(--hover-strong);
+}
+
+.product button {
+  padding: 10px 12px;
+}
+
+/* ---------------------------------------------------------
+   Cart
+--------------------------------------------------------- */
+.cart-item {
+  display: grid;
+  grid-template-columns: 70px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  border-radius: var(--radius);
+  background: var(--card);
+}
+
+/* Make +/- consistent and NOT wide */
+.cart-item button[data-action="decrease"],
+.cart-item button[data-action="increase"] {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  line-height: 1;
+  text-align: center;
+  border-radius: 8px;
+}
+
+/* Allow Remove to size naturally */
+.cart-item button[data-action="remove"] {
+  width: auto;
+  height: 34px;
+  padding: 0 10px;
+  border-radius: 10px;
+}
+
+/* ---------------------------------------------------------
+   Toast
+--------------------------------------------------------- */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #222;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 10px;
+  z-index: 1000;
+  opacity: 0.95;
+}
+
+/* ---------------------------------------------------------
+   Responsive
+--------------------------------------------------------- */
+@media (max-width: 768px) {
+  /* Title and burger share the row */
+  .header-inner {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  /* Burger sits on the same line as the title (right side) */
+  .nav-bar {
+    margin-top: 0;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    justify-content: flex-end;
+    min-height: 44px;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+  }
+
+  /* Dropdown menu */
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+
+    padding: 14px;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: var(--shadow);
+    min-width: 200px;
+  }
+
+  .nav-links a {
+    padding: 10px 12px;
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+
+  /* Grids */
+  .portfolio-grid,
+  .shop-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Cart layout */
+  .cart-item {
+    grid-template-columns: 70px 1fr;
+    grid-template-rows: auto auto;
+  }
+}
