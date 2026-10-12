@@ -1,31 +1,27 @@
-import { useState, useEffect } from 'react';
-import Header from './components/Header';
+import { Routes, Route } from "react-router";
+
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Works from "./pages/Works";
+import Shop from "./pages/Shop";
+import Cart from "./pages/Cart";
+import Header from "./components/Header";
 
 function App() {
-  const [products, setProducts] = useState([])
-
-  useEffect(() => {
-    async function fetchProducts () {
-      const response = await fetch("/products");
-      const result = await response.json();
-      setProducts(result);
-    }
-    fetchProducts();
-
-  }, []);
-
-  return(
+  return (
     <>
       <Header />
-      <ul>
-        {products.map((product) => (
-          <li key={product.id}>{product.name}</li>
-        ))}
-      </ul>
+      <main className="container">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/works" element={<Works />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/cart" element={<Cart />} />
+        </Routes>
+      </main>
     </>
-    
-  )
-
+  );
 }
 
-export default App
+export default App;
