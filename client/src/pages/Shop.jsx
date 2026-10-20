@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import ProductCard from "../components/ProductCard";
 
 export default function Shop() {
   const [products, setProducts] = useState([]);
@@ -15,11 +16,11 @@ export default function Shop() {
   return (
     <>
       <h2 className="page-title">Shop</h2>
-      <ul>
+      <section className="shop-grid">
         {products.map((product) => (
-          <li key={product.id}>{product.name}</li>
+          <ProductCard key={product.id} product={product} />
         ))}
-      </ul>
+      </section>
     </>
   );
 }
